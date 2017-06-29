@@ -23,6 +23,10 @@ public final class AppiumParallelTestListener
     public AppiumParallelTestListener() throws Exception {
         try {
             reportManager = new ReportManager();
+
+            // TODO: 29/06/17 Setting up the report manager
+            ExtentTestManager.setReportManager(reportManager);
+
             appiumServerManager = new AppiumServerManager();
             prop = ConfigFileManager.getInstance();
             deviceAllocationManager = DeviceAllocationManager.getInstance();
@@ -68,9 +72,6 @@ public final class AppiumParallelTestListener
             appiumDriverManager.startAppiumDriver();
             reportManager.startLogResults(method.getTestMethod().getMethodName(),
                     testResult.getTestClass().getRealClass().getSimpleName());
-
-            // TODO: 29/06/17 Setting up the report manager
-            ExtentTestManager.setReportManager(reportManager);
 
             SkipIf skip =
                     method.getTestMethod()
