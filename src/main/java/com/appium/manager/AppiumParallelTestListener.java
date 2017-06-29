@@ -4,6 +4,7 @@ import com.annotation.values.Description;
 import com.annotation.values.SkipIf;
 import com.report.factory.ExtentManager;
 import org.testng.*;
+import org.testng.annotations.BeforeTest;
 
 import java.io.IOException;
 
@@ -27,6 +28,22 @@ public final class AppiumParallelTestListener
             deviceAllocationManager = DeviceAllocationManager.getInstance();
             appiumDriverManager = new AppiumDriverManager();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @BeforeTest
+    public void beforeEveryTest(ITestResult iTestResult){
+        try {
+            String methodName = iTestResult.getParameters()[0].toString();
+//            String className = iTestResult.getTestClass().getRealClass().getSimpleName();
+            if (getClass().getAnnotation(Description.class) != null) {
+                testDescription = getClass().getAnnotation(Description.class).value();
+            }
+            reportManager.createNewTestExtent(methodName, testDescription);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -101,18 +118,6 @@ public final class AppiumParallelTestListener
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        try {
-
-            String className = iTestResult.getTestClass().getRealClass().getSimpleName();
-            if (getClass().getAnnotation(Description.class) != null) {
-                testDescription = getClass().getAnnotation(Description.class).value();
-            }
-            reportManager.createNewTestExtent(className, testDescription);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
