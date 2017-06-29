@@ -73,6 +73,9 @@ public final class AppiumParallelTestListener
             reportManager.startLogResults(method.getTestMethod().getMethodName(),
                     testResult.getTestClass().getRealClass().getSimpleName());
 
+            // TODO: 29/06/17 added setAuthorName here to create the node earlier
+            reportManager.setAuthorName(method);
+
             SkipIf skip =
                     method.getTestMethod()
                             .getConstructorOrMethod()
@@ -96,7 +99,8 @@ public final class AppiumParallelTestListener
         try {
             if (testResult.getStatus() == ITestResult.SUCCESS
                     || testResult.getStatus() == ITestResult.FAILURE) {
-                reportManager.setAuthorName(method);
+                // TODO: 29/06/17 removed set Author Name bc it's creating node at the end
+//                reportManager.setAuthorName(method);
                 reportManager.endLogTestResults(testResult);
             }
             appiumDriverManager.stopAppiumDriver();
