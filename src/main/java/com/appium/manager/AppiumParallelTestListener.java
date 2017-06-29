@@ -1,25 +1,14 @@
 package com.appium.manager;
 
 import com.annotation.values.Description;
-import com.annotation.values.RetryCount;
 import com.annotation.values.SkipIf;
 import com.report.factory.ExtentManager;
-
-import org.testng.IClassListener;
-import org.testng.IInvokedMethod;
-import org.testng.IInvokedMethodListener;
-import org.testng.IRetryAnalyzer;
-import org.testng.ITestClass;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.SkipException;
+import org.testng.*;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 public final class AppiumParallelTestListener
-    implements ITestListener, IClassListener, IInvokedMethodListener {
+        implements ITestListener, IClassListener, IInvokedMethodListener {
 
     private ReportManager reportManager;
     private DeviceAllocationManager deviceAllocationManager;
@@ -48,12 +37,12 @@ public final class AppiumParallelTestListener
             String device = testClass.getXmlClass().getAllParameters().get("device").toString();
             String className = testClass.getRealClass().getSimpleName();
             deviceAllocationManager.allocateDevice(device,
-                deviceAllocationManager.getNextAvailableDeviceId());
+                    deviceAllocationManager.getNextAvailableDeviceId());
             appiumServerManager.startAppiumServer(className);
             if (getClass().getAnnotation(Description.class) != null) {
                 testDescription = getClass().getAnnotation(Description.class).value();
             }
-            reportManager.createParentNodeExtent(className, testDescription);
+//            reportManager.createParentNodeExtent(className, testDescription);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,7 +90,7 @@ public final class AppiumParallelTestListener
         try {
             if (testResult.getStatus() == ITestResult.SUCCESS
                     || testResult.getStatus() == ITestResult.FAILURE) {
-                reportManager.setAuthorName(method);
+//                reportManager.setAuthorName(method);
                 reportManager.endLogTestResults(testResult);
             }
             appiumDriverManager.stopAppiumDriver();
@@ -112,7 +101,18 @@ public final class AppiumParallelTestListener
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
+        try {
 
+            String className = iTestResult.getTestClass().getRealClass().getSimpleName();
+            if (getClass().getAnnotation(Description.class) != null) {
+                testDescription = getClass().getAnnotation(Description.class).value();
+            }
+            reportManager.createNewTestExtent(className, testDescription);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ReportManager {
         deviceManager = new DeviceManager();
     }
 
-    public void startLogResults(String methodName,String className) throws FileNotFoundException {
+    public void startLogResults(String methodName, String className) throws FileNotFoundException {
         testLogger.startLogging(methodName, className);
     }
 
@@ -42,16 +42,30 @@ public class ReportManager {
         testLogger.endLog(result, deviceManager.getDeviceModel(), test);
     }
 
-    public ExtentTest createParentNodeExtent(String methodName, String testDescription)
-        throws IOException, InterruptedException {
+//    public ExtentTest createParentNodeExtent(String methodName, String testDescription)
+//        throws IOException, InterruptedException {
+//        parent = ExtentTestManager.createTest(methodName, testDescription,
+//            deviceManager.getDeviceModel()
+//                    + DeviceManager.getDeviceUDID());
+//        parentTest.set(parent);
+//        ExtentTestManager.getTest().log(Status.INFO,
+//            "<a target=\"_parent\" href=" + "appiumlogs/"
+//                + DeviceManager.getDeviceUDID() + "__" + methodName
+//                + ".txt" + ">AppiumServerLogs</a>");
+//        return parent;
+//    }
+
+    
+    public ExtentTest createNewTestExtent(String methodName, String testDescription)
+            throws IOException, InterruptedException {
         parent = ExtentTestManager.createTest(methodName, testDescription,
-            deviceManager.getDeviceModel()
-                    + DeviceManager.getDeviceUDID());
-        parentTest.set(parent);
+                deviceManager.getDeviceModel()
+                        + DeviceManager.getDeviceUDID());
+//        parentTest.set(parent);
         ExtentTestManager.getTest().log(Status.INFO,
-            "<a target=\"_parent\" href=" + "appiumlogs/"
-                + DeviceManager.getDeviceUDID() + "__" + methodName
-                + ".txt" + ">AppiumServerLogs</a>");
+                "<a target=\"_parent\" href=" + "appiumlogs/"
+                        + DeviceManager.getDeviceUDID() + "__" + methodName
+                        + ".txt" + ">AppiumServerLogs</a>");
         return parent;
     }
 
@@ -61,41 +75,41 @@ public class ReportManager {
         ArrayList<String> listeners = new ArrayList<>();
         String descriptionMethodName;
         String description = methodName.getTestMethod()
-            .getConstructorOrMethod().getMethod()
-            .getAnnotation(Test.class).description();
+                .getConstructorOrMethod().getMethod()
+                .getAnnotation(Test.class).description();
         getDescriptionForChildNode = new GetDescriptionForChildNode(methodName, description)
-            .invoke();
+                .invoke();
         methodNamePresent = getDescriptionForChildNode.isMethodNamePresent();
         descriptionMethodName = getDescriptionForChildNode.getDescriptionMethodName();
         if (System.getProperty("os.name").toLowerCase().contains("mac")
                 && System.getenv("Platform").equalsIgnoreCase("iOS")
-                    || System.getenv("Platform")
-                         .equalsIgnoreCase("Both")) {
+                || System.getenv("Platform")
+                .equalsIgnoreCase("Both")) {
             category = deviceManager.getDeviceCategory();
         } else {
             category = deviceManager.getDeviceModel();
         }
         if (methodNamePresent) {
             authorName = methodName.getTestMethod()
-                .getConstructorOrMethod().getMethod()
-                .getAnnotation(Author.class).name();
+                    .getConstructorOrMethod().getMethod()
+                    .getAnnotation(Author.class).name();
             Collections.addAll(listeners, authorName.split("\\s*,\\s*"));
             child = parentTest.get()
-                .createNode(descriptionMethodName,
-                    category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
-                    String.valueOf(listeners));
+                    .createNode(descriptionMethodName,
+                            category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
+                            String.valueOf(listeners));
             test.set(child);
         } else {
             child = parentTest.get().createNode(descriptionMethodName,
-                category + "_" + DeviceManager.getDeviceUDID());
+                    category + "_" + DeviceManager.getDeviceUDID());
             test.set(child);
         }
     }
 
     public void createChildNodeWithCategory(String methodName,
-        String tags) {
+                                            String tags) {
         child = parentTest.get().createNode(methodName, category
-            + DeviceManager.getDeviceUDID()).assignCategory(tags);
+                + DeviceManager.getDeviceUDID()).assignCategory(tags);
         test.set(child);
     }
 }
