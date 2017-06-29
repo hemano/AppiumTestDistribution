@@ -6,6 +6,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.report.factory.ExtentTestManager;
 import org.testng.IInvokedMethod;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 
@@ -43,6 +44,7 @@ public class ReportManager {
     }
 
     public ExtentTest createParentNodeExtent(String methodName, String testDescription)
+
         throws IOException, InterruptedException {
         parent = ExtentTestManager.createTest(methodName, testDescription,
             deviceManager.getDeviceModel()
@@ -52,7 +54,12 @@ public class ReportManager {
             "<a target=\"_parent\" href=" + "appiumlogs/"
                 + DeviceManager.getDeviceUDID() + "__" + methodName
                 + ".txt" + ">AppiumServerLogs</a>");
+
         return parent;
+    }
+
+    public  void share(ITestContext iTestContext){
+        iTestContext.setAttribute("testNode", this.test);
     }
 
     public void setAuthorName(IInvokedMethod methodName) throws Exception {
