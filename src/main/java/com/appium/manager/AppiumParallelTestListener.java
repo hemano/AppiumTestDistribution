@@ -67,6 +67,9 @@ public final class AppiumParallelTestListener
             appiumDriverManager.startAppiumDriver();
             reportManager.startLogResults(method.getTestMethod().getMethodName(),
                     testResult.getTestClass().getRealClass().getSimpleName());
+
+            testResult.setAttribute("testNode", reportManager.test.get());
+
             SkipIf skip =
                     method.getTestMethod()
                             .getConstructorOrMethod()
@@ -129,7 +132,6 @@ public final class AppiumParallelTestListener
 
     @Override
     public void onStart(ITestContext context) {
-        reportManager.share(context);
     }
 
     @Override

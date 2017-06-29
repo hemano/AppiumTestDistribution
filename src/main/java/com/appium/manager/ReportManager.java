@@ -6,7 +6,6 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.report.factory.ExtentTestManager;
 import org.testng.IInvokedMethod;
-import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 
@@ -56,10 +55,6 @@ public class ReportManager {
                 + ".txt" + ">AppiumServerLogs</a>");
 
         return parent;
-    }
-
-    public  void share(ITestContext iTestContext){
-        iTestContext.setAttribute("testNode", this.test.get());
     }
 
     public void setAuthorName(IInvokedMethod methodName) throws Exception {
