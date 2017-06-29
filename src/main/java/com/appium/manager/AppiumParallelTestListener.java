@@ -3,6 +3,7 @@ package com.appium.manager;
 import com.annotation.values.Description;
 import com.annotation.values.SkipIf;
 import com.report.factory.ExtentManager;
+import com.report.factory.ExtentTestManager;
 import org.testng.*;
 
 import java.io.IOException;
@@ -68,7 +69,8 @@ public final class AppiumParallelTestListener
             reportManager.startLogResults(method.getTestMethod().getMethodName(),
                     testResult.getTestClass().getRealClass().getSimpleName());
 
-            testResult.setAttribute("testNode", reportManager.test.get());
+            // TODO: 29/06/17 Setting up the report manager
+            ExtentTestManager.setReportManager(reportManager);
 
             SkipIf skip =
                     method.getTestMethod()
