@@ -59,7 +59,7 @@ public class ReportManager {
     }
 
     public  void share(ITestContext iTestContext){
-        iTestContext.setAttribute("testNode", this.test);
+        iTestContext.setAttribute("testNode", this.test.get());
     }
 
     public void setAuthorName(IInvokedMethod methodName) throws Exception {
