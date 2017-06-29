@@ -42,20 +42,20 @@ public class ReportManager {
         testLogger.endLog(result, deviceManager.getDeviceModel(), test);
     }
 
-//    public ExtentTest createParentNodeExtent(String methodName, String testDescription)
-//        throws IOException, InterruptedException {
-//        parent = ExtentTestManager.createTest(methodName, testDescription,
-//            deviceManager.getDeviceModel()
-//                    + DeviceManager.getDeviceUDID());
-//        parentTest.set(parent);
-//        ExtentTestManager.getTest().log(Status.INFO,
-//            "<a target=\"_parent\" href=" + "appiumlogs/"
-//                + DeviceManager.getDeviceUDID() + "__" + methodName
-//                + ".txt" + ">AppiumServerLogs</a>");
-//        return parent;
-//    }
+    public ExtentTest createParentNodeExtent(String methodName, String testDescription)
+        throws IOException, InterruptedException {
+        parent = ExtentTestManager.createTest(methodName, testDescription,
+            deviceManager.getDeviceModel()
+                    + DeviceManager.getDeviceUDID());
+        parentTest.set(parent);
+        ExtentTestManager.getTest().log(Status.INFO,
+            "<a target=\"_parent\" href=" + "appiumlogs/"
+                + DeviceManager.getDeviceUDID() + "__" + methodName
+                + ".txt" + ">AppiumServerLogs</a>");
+        return parent;
+    }
 
-    
+
     public ExtentTest createNewTestExtent(String methodName, String testDescription)
             throws IOException, InterruptedException {
         parent = ExtentTestManager.createTest(methodName, testDescription,
