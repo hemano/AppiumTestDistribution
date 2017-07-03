@@ -3,17 +3,17 @@
 <suite thread-count="1" verbose="2" name="TestNG Forum" parallel="classes">
     <listeners>
         <listener class-name="com.appium.manager.AppiumParallelTestListener"/>
-        <listener class-name="com.appium.utils.RetryListener"/>
+        <!--<listener class-name="com.appium.utils.RetryListener"/>-->
     </listeners>
     <test name="TestNG Test">
-        <parameter name="device" value="192.168.56.101:5555"/>
+        <parameter name="device" value="FAAZCY04U491"/>
         <groups>
-        <run>
-            <include name="smoke"/>
-        </run>
+        <!--<run>-->
+            <!--<include name="smoke"/>-->
+        <!--</run>-->
         </groups>
         <classes>
-            <class name="com.test.site.HomePageTest2"/>
+            <class name="com.test.site.TestReports"/>
         </classes>
     </test> <!-- TestNG Test -->
 </suite> <!-- TestNG Forum -->

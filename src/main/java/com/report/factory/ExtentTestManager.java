@@ -1,5 +1,6 @@
 package com.report.factory;
 
+import com.appium.manager.ReportManager;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -11,11 +12,16 @@ public class ExtentTestManager { // new
     public static Properties prop = new Properties();
 
     public static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
+    public static ThreadLocal<ExtentTest> extentTestNode = new ThreadLocal<ExtentTest>();
     public static ExtentReports extent = ExtentManager.getExtent();
     private static ExtentTest test;
 
     public synchronized static ExtentTest getTest() {
         return extentTest.get();
+    }
+
+    public synchronized static void setReportManager(ReportManager reportManager) {
+        extentTestNode.set(reportManager.test.get());
     }
 
     public synchronized static ExtentTest createTest(String name, String description,
