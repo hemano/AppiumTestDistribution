@@ -51,7 +51,7 @@ public class ScreenShotManager {
             screenShotAndFrame(status, scrFile, methodName, className, getDeviceModel,
                     "iOS", deviceModel);
         }
-        return getDeviceModel;
+        return getDeviceModel.replace(":","_");
     }
 
     public void captureScreenShot(String screenShotName)
@@ -83,14 +83,14 @@ public class ScreenShotManager {
                         + platform + "/" + DeviceManager.getDeviceUDID()
                         + "/" + className + "/"
                         + methodName + "/"
-                        + screenShotNameWithTimeStamp + deviceModel + "_"
+                        + screenShotNameWithTimeStamp.replace(":", "_") + deviceModel + "_"
                         + methodName + "_failed" + ".jpeg";
         String capturedScreen =
                 System.getProperty("user.dir") + "/target/screenshot/"
                         + platform + "/" + DeviceManager.getDeviceUDID()
                         + "/" + className
                         + "/" + methodName + "/"
-                        + screenShotNameWithTimeStamp + deviceModel + "_"
+                        + screenShotNameWithTimeStamp.replace(":", "_") + deviceModel + "_"
                         + methodName + "_results.jpeg";
         String framedCapturedScreen =
                 System.getProperty("user.dir") + "/target/screenshot/"

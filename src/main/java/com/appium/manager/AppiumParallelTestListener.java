@@ -1,22 +1,12 @@
 package com.appium.manager;
 
 import com.annotation.values.Description;
-import com.annotation.values.RetryCount;
 import com.annotation.values.SkipIf;
 import com.report.factory.ExtentManager;
-
-import org.testng.IClassListener;
-import org.testng.IInvokedMethod;
-import org.testng.IInvokedMethodListener;
-import org.testng.IRetryAnalyzer;
-import org.testng.ITestClass;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.SkipException;
+import com.report.factory.ExtentTestManager;
+import org.testng.*;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 public final class AppiumParallelTestListener
     implements ITestListener, IClassListener, IInvokedMethodListener {
@@ -78,6 +68,14 @@ public final class AppiumParallelTestListener
             appiumDriverManager.startAppiumDriver();
             reportManager.startLogResults(method.getTestMethod().getMethodName(),
                     testResult.getTestClass().getRealClass().getSimpleName());
+
+            // TODO: 29/06/17 added setAuthorName here to create the node earlier
+            reportManager.setAuthorName(method);
+
+            // TODO: 29/06/17 Setting up the report manager
+            ExtentTestManager.setReportManager(reportManager);
+
+
             SkipIf skip =
                     method.getTestMethod()
                             .getConstructorOrMethod()
@@ -101,7 +99,8 @@ public final class AppiumParallelTestListener
         try {
             if (testResult.getStatus() == ITestResult.SUCCESS
                     || testResult.getStatus() == ITestResult.FAILURE) {
-                reportManager.setAuthorName(method);
+                // TODO: 29/06/17 removed set Author Name bc it's creating node at the end
+//                reportManager.setAuthorName(method);
                 reportManager.endLogTestResults(testResult);
             }
             appiumDriverManager.stopAppiumDriver();
@@ -140,7 +139,6 @@ public final class AppiumParallelTestListener
 
     @Override
     public void onStart(ITestContext context) {
-
     }
 
     @Override
