@@ -215,7 +215,7 @@ class TestLogger {
                                     + className + "/" + result.getMethod().getMethodName()
                                     + "/" + screenShotNameWithTimeStamp
                                     + "_failed_" + result
-                                    .getMethod().getMethodName() + "_framed.png"));
+                                    .getMethod().getMethodName() + "_framed.jpeg"));
 
                 } else {
                     test.get().log(Status.FAIL,"Snapshot below: "
@@ -224,7 +224,7 @@ class TestLogger {
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_") + "/"
                                     + className + "/" + result.getMethod().getMethodName() + "/"
                                     + screenShotNameWithTimeStamp + "_" + result
-                                    .getMethod().getMethodName() + "_failed.png"));
+                                    .getMethod().getMethodName() + "_failed.jpeg"));
                 }
 
 
@@ -245,9 +245,9 @@ class TestLogger {
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_")
                                     + "/" + className
                                     + "/" + result.getMethod().getMethodName() + "/"
-                                    + screenShotNameWithTimeStamp + deviceModel
+                                    + screenShotNameWithTimeStamp
                                     + "_failed_" + result
-                                    .getMethod().getMethodName() + "_framed.png"));
+                                    .getMethod().getMethodName() + "_framed.jpeg"));
                 } else {
                     test.get().log(Status.FAIL,"Snapshot below: "
                             + ExtentTestManager.getTest().addScreenCaptureFromPath(
@@ -255,8 +255,8 @@ class TestLogger {
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_")
                                     + "/" + className
                                     + "/" + result.getMethod().getMethodName() + "/"
-                                    + screenShotNameWithTimeStamp + deviceModel + "_" + result
-                                    .getMethod().getMethodName() + "_failed.png"));
+                                    + screenShotNameWithTimeStamp + "_" + result
+                                    .getMethod().getMethodName() + "_failed.jpeg"));
                 }
 
             }
