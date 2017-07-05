@@ -214,7 +214,7 @@ class TestLogger {
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_") + "/"
                                     + className + "/" + result.getMethod().getMethodName()
                                     + "/" + screenShotNameWithTimeStamp
-                                    + deviceModel + "_failed_" + result
+                                    + "_failed_" + result
                                     .getMethod().getMethodName() + "_framed.png"));
 
                 } else {
@@ -223,7 +223,7 @@ class TestLogger {
                             System.getProperty("user.dir") + "/target/screenshot/android/"
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_") + "/"
                                     + className + "/" + result.getMethod().getMethodName() + "/"
-                                    + screenShotNameWithTimeStamp + deviceModel + "_" + result
+                                    + screenShotNameWithTimeStamp + "_" + result
                                     .getMethod().getMethodName() + "_failed.png"));
                 }
 
