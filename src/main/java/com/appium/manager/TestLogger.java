@@ -116,7 +116,6 @@ class TestLogger {
                             .getMethodName() + ".mp4" + ">Videologs</a>");
                 }
             }
-
         }
         ExtentManager.getExtent().flush();
     }
@@ -209,7 +208,7 @@ class TestLogger {
                                 + "_failed_" + result.getMethod().getMethodName() + "_framed.jpeg");
                 if (framedImageAndroid.exists()) {
                     test.get().log(Status.FAIL,"Snapshot below: "
-                            + ExtentTestManager.getTest().addScreenCaptureFromPath(
+                            + test.get().addScreenCaptureFromPath(
                             System.getProperty("user.dir") + "/target/screenshot/android/"
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_") + "/"
                                     + className + "/" + result.getMethod().getMethodName()
@@ -219,7 +218,7 @@ class TestLogger {
 
                 } else {
                     test.get().log(Status.FAIL,"Snapshot below: "
-                            + ExtentTestManager.getTest().addScreenCaptureFromPath(
+                            + test.get().addScreenCaptureFromPath(
                             System.getProperty("user.dir") + "/target/screenshot/android/"
                                     + DeviceManager.getDeviceUDID().replaceAll("\\W", "_") + "/"
                                     + className + "/" + result.getMethod().getMethodName() + "/"
