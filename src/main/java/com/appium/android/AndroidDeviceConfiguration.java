@@ -48,9 +48,7 @@ public class AndroidDeviceConfiguration {
         String[] lines = output.split("\n");
 
         if (lines.length <= 1) {
-            System.out.println("No Android Device Connected");
             stopADB();
-            return null;
         } else {
             for (int i = 1; i < lines.length; i++) {
                 lines[i] = lines[i].replaceAll("\\s+", "");
@@ -69,8 +67,8 @@ public class AndroidDeviceConfiguration {
 
                 }
             }
-            return devices;
         }
+        return devices;
     }
 
     public void getDeviceInfo(int i, String deviceID) throws InterruptedException, IOException {
@@ -105,8 +103,7 @@ public class AndroidDeviceConfiguration {
         String[] lines = output.split("\n");
 
         if (lines.length <= 1) {
-            System.out.println("No Android Device Connected");
-            return null;
+            throw new IllegalArgumentException("No Android Device Connected");
         } else {
             for (int i = 1; i < lines.length; i++) {
                 lines[i] = lines[i].replaceAll("\\s+", "");

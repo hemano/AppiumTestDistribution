@@ -5,7 +5,6 @@ import com.annotation.values.SkipIf;
 import com.report.factory.ExtentManager;
 import com.report.factory.ExtentTestManager;
 import org.testng.*;
-
 import java.io.IOException;
 
 public final class AppiumParallelTestListener
@@ -65,7 +64,7 @@ public final class AppiumParallelTestListener
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         try {
-            appiumDriverManager.startAppiumDriver();
+            appiumDriverManager.startAppiumDriverInstance();
             reportManager.startLogResults(method.getTestMethod().getMethodName(),
                     testResult.getTestClass().getRealClass().getSimpleName());
 

@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Runner {
@@ -19,8 +18,6 @@ public class Runner {
         ParallelThread parallelThread = new ParallelThread();
         List<String> tests = new ArrayList<>();
         tests.add("HomePageTest2");
-        tests.add("HomePageTest3");
-        tests.add("HomePageTest4");
         boolean hasFailures = parallelThread.runner("com.test.site",tests);
         Assert.assertFalse(hasFailures, "Testcases have failed in parallel execution");
     }

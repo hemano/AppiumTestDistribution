@@ -64,12 +64,18 @@ public class ReportManager {
 
     public void setAuthorName(IInvokedMethod methodName) throws Exception {
         String authorName;
+        String dataProvider = null;
         boolean methodNamePresent;
         ArrayList<String> listeners = new ArrayList<>();
-        String descriptionMethodName;
         String description = methodName.getTestMethod()
-                .getConstructorOrMethod().getMethod()
-                .getAnnotation(Test.class).description();
+            .getConstructorOrMethod().getMethod()
+            .getAnnotation(Test.class).description();
+        Object dataParameter = methodName.getTestResult().getParameters();
+        if (((Object[]) dataParameter).length > 0) {
+            dataProvider = (String) ((Object[]) dataParameter)[0];
+        }
+        String descriptionMethodName;
+
         getDescriptionForChildNode = new GetDescriptionForChildNode(methodName, description)
                 .invoke();
         methodNamePresent = getDescriptionForChildNode.isMethodNamePresent();
@@ -82,19 +88,21 @@ public class ReportManager {
         } else {
             category = deviceManager.getDeviceModel();
         }
+        String testName = dataProvider == null ? descriptionMethodName
+                : descriptionMethodName + "[" + dataProvider + "]";
         if (methodNamePresent) {
             authorName = methodName.getTestMethod()
                     .getConstructorOrMethod().getMethod()
                     .getAnnotation(Author.class).name();
             Collections.addAll(listeners, authorName.split("\\s*,\\s*"));
             child = parentTest.get()
-                    .createNode(descriptionMethodName,
-                            category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
-                            String.valueOf(listeners));
+                .createNode(testName,
+                    category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
+                    String.valueOf(listeners));
             test.set(child);
         } else {
-            child = parentTest.get().createNode(descriptionMethodName,
-                    category + "_" + DeviceManager.getDeviceUDID());
+            child = parentTest.get().createNode(testName,
+                category + "_" + DeviceManager.getDeviceUDID());
             test.set(child);
         }
     }
