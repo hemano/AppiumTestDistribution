@@ -28,7 +28,8 @@ public class ReportManager {
     public ThreadLocal<ExtentTest> parentTest = new ThreadLocal<ExtentTest>();
     public ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
     public ExtentTest parent;
-    public ExtentTest child;
+    public ThreadLocal<ExtentTest> child = new ThreadLocal<ExtentTest>();
+//    public ExtentTest child;
     private GetDescriptionForChildNode getDescriptionForChildNode;
     public String category = null;
 
@@ -95,23 +96,32 @@ public class ReportManager {
                     .getConstructorOrMethod().getMethod()
                     .getAnnotation(Author.class).name();
             Collections.addAll(listeners, authorName.split("\\s*,\\s*"));
-            child = parentTest.get()
-                .createNode(testName,
-                    category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
-                    String.valueOf(listeners));
-            test.set(child);
+            child.set(parentTest.get()
+                    .createNode(testName,
+                            category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
+                            String.valueOf(listeners)));
+//            child = parentTest.get()
+//                .createNode(testName,
+//                    category + "_" + DeviceManager.getDeviceUDID()).assignAuthor(
+//                    String.valueOf(listeners));
+
+            test.set(child.get());
         } else {
-            child = parentTest.get().createNode(testName,
-                category + "_" + DeviceManager.getDeviceUDID());
-            test.set(child);
+            child.set(parentTest.get().createNode(testName,
+                    category + "_" + DeviceManager.getDeviceUDID()));
+//            child = parentTest.get().createNode(testName,
+//                category + "_" + DeviceManager.getDeviceUDID());
+            test.set(child.get());
         }
     }
 
     public void createChildNodeWithCategory(String methodName,
                                             String tags) {
-        child = parentTest.get().createNode(methodName, category
-                + DeviceManager.getDeviceUDID()).assignCategory(tags);
-        test.set(child);
+        child.set(parentTest.get().createNode(methodName, category
+                + DeviceManager.getDeviceUDID()).assignCategory(tags));
+//        child = parentTest.get().createNode(methodName, category
+//                + DeviceManager.getDeviceUDID()).assignCategory(tags);
+        test.set(child.get());
     }
 
     public void createExcelForResult() {

@@ -21,7 +21,7 @@ public class ExtentTestManager { // new
     }
 
     public synchronized static void setReportManager(ReportManager reportManager) {
-        extentTestNode.set(reportManager.test.get());
+        extentTestNode.set(reportManager.child.get());
     }
 
     public synchronized static ExtentTest createTest(String name, String description,
