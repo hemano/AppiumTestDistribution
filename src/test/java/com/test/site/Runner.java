@@ -1,6 +1,7 @@
 package com.test.site;
 
 import com.appium.manager.ParallelThread;
+import com.report.factory.ExtentManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,8 @@ public class Runner {
         List<String> deviceList = Arrays.asList(parts);
         System.out.println(deviceList);*/
         ParallelThread parallelThread = new ParallelThread();
+        ExtentManager.setSystemInfoInReport("version","1.0.0");
+        //ExtentManager.setSystemInfoInReport("Environement","test");
         List<String> tests = new ArrayList<>();
         tests.add("HomePageTest2");
         boolean hasFailures = parallelThread.runner("com.test.site",tests);
