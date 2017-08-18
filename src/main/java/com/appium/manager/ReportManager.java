@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * ReportManager - Handles all Reporting activities e.g communication with ExtentManager, etc
@@ -44,8 +45,9 @@ public class ReportManager {
         testLogger.startLogging(methodName, className);
     }
 
-    public void endLogTestResults(ITestResult result) throws IOException, InterruptedException {
-        testLogger.endLog(result, deviceManager.getDeviceModel(), test);
+    public HashMap<String, String> endLogTestResults(ITestResult result)
+            throws IOException, InterruptedException {
+        return testLogger.endLog(result, deviceManager.getDeviceModel(), test);
     }
 
     public ExtentTest createParentNodeExtent(String methodName, String testDescription)
