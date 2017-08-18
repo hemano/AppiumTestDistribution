@@ -39,16 +39,23 @@ public class DesiredCapabilityManager {
                 configFileManager.getProperty("APP_PACKAGE"));
         androidCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,
                 AutomationName.ANDROID_UIAUTOMATOR2);
-        Path path = FileSystems.getDefault().getPath(configFileManager
-                .getProperty("ANDROID_APP_PATH"));
-        if (!path.getParent().isAbsolute()) {
-            androidCapabilities.setCapability(MobileCapabilityType.APP, path.normalize()
-                    .toAbsolutePath().toString());
-        } else {
-            androidCapabilities
-                    .setCapability(MobileCapabilityType.APP,
-                            configFileManager.getProperty("ANDROID_APP_PATH"));
+
+        if(!configFileManager
+                .getProperty("ANDROID_APP_PATH").isEmpty()){
+
+            Path path = FileSystems.getDefault().getPath(configFileManager
+                    .getProperty("ANDROID_APP_PATH"));
+            if (!path.getParent().isAbsolute()) {
+                androidCapabilities.setCapability(MobileCapabilityType.APP, path.normalize()
+                        .toAbsolutePath().toString());
+            } else {
+                androidCapabilities
+                        .setCapability(MobileCapabilityType.APP,
+                                configFileManager.getProperty("ANDROID_APP_PATH"));
+            }
         }
+
+
         System.out.println(DeviceManager.getDeviceUDID() + Thread.currentThread().getId());
         androidCapabilities.setCapability(MobileCapabilityType.UDID,
                 DeviceManager.getDeviceUDID());
