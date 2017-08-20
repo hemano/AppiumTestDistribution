@@ -38,6 +38,9 @@
                     setTimeout(function() {
                         $('#enableDashboard').click();
                              }, 500);
+
+                $('.test-name-list li:eq(0)').click()
+                $('.fixed.test-panel.no-bg.top.bottom.ng-scope').attr('style','')
 });
             ]]>
 
