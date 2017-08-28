@@ -85,7 +85,10 @@ public class DesiredCapabilityBuilder {
                         simulatorManager.getSimulatorDetailsFromUDID(DeviceManager.getDeviceUDID(),
                                 "iOS").getOsVersion());
             }
-            if (Float.valueOf(iosDevice.getIOSDeviceProductVersion()) >= 10.0) {
+
+            String iosDeviceVer = iosDevice.getIOSDeviceProductVersion();
+            iosDeviceVer = iosDeviceVer.substring(0, iosDeviceVer.indexOf(iosDeviceVer.indexOf(".")));
+            if (Float.valueOf(iosDeviceVer) >= 10.0) {
                 desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,
                         AutomationName.IOS_XCUI_TEST);
                 desiredCapabilities.setCapability(IOSMobileCapabilityType
